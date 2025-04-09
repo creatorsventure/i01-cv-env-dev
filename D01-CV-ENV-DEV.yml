@@ -136,7 +136,8 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_CLOUD_VAULT_URI: http://local.vault.docker:8200
+      VAULT_URI: http://local.vault.docker:8200
+      VAULT_HOSTNAME: local.vault.docker
       VAULT_TOKEN: $VAULT_TOKEN
       SPRING_PROFILES_ACTIVE: git,vault,dev
     volumes:
