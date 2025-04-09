@@ -106,65 +106,6 @@ services:
       cv_network:
         ipv4_address: 172.0.0.15
 
-  service-registry:
-    image: ghcr.io/creatorsventure/s01-service-registry:latest
-    container_name: service-registry
-    hostname: local.service-registry.docker
-    restart: unless-stopped
-    depends_on:
-      - vault
-      - redis
-      - mysql
-      - kafka
-    ports:
-      - "8761:8761"
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
-    volumes:
-      - ./service-registry/config:/app/config
-    networks:
-      cv_network:
-        ipv4_address: 172.0.0.16
-
-  cloud-config:
-    image: ghcr.io/creatorsventure/s02-cloud-config:latest
-    container_name: cloud-config
-    hostname: local.cloud-config.docker
-    restart: unless-stopped
-    depends_on:
-      - service-registry
-    ports:
-      - "8081:8081"
-    environment:
-      VAULT_URI: http://local.vault.docker:8200
-      VAULT_HOSTNAME: local.vault.docker
-      VAULT_TOKEN: $VAULT_TOKEN
-      SPRING_PROFILES_ACTIVE: git,vault,dev
-    volumes:
-      - ./cloud-config/config:/app/config
-    networks:
-      cv_network:
-        ipv4_address: 172.0.0.17
-
-  cloud-gateway:
-    image: ghcr.io/creatorsventure/s03-cloud-gateway:latest
-    container_name: cloud-gateway
-    hostname: local.cloud-gateway.docker
-    restart: unless-stopped
-    depends_on:
-      - service-registry
-      - cloud-config
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
-      CONFIG_SERVER_URL: configserver:http://local.cloud-config.docker:8081
-    volumes:
-      - ./cloud-gateway/config:/app/config
-    networks:
-      cv_network:
-        ipv4_address: 172.0.0.18
-
 networks:
   cv_network:
     name: cv_network
