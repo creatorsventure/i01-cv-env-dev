@@ -13,7 +13,7 @@ services:
       - ./cloud-gateway/config:/app/config
     networks:
       cv_network:
-        ipv4_address: 172.0.0.18
+        ipv4_address: 172.0.0.101
 
 networks:
   cv_network:

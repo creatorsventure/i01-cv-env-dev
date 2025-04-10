@@ -12,7 +12,7 @@ services:
       - ./service-registry/config:/app/config
     networks:
       cv_network:
-        ipv4_address: 172.0.0.16
+        ipv4_address: 172.0.0.50
 
   cloud-config:
     image: ghcr.io/creatorsventure/s02-cloud-config:latest
@@ -32,7 +32,7 @@ services:
       - ./cloud-config/config:/app/config
     networks:
       cv_network:
-        ipv4_address: 172.0.0.17
+        ipv4_address: 172.0.0.51
 
 networks:
   cv_network:
