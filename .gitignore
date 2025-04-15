@@ -12,6 +12,7 @@ cloud-config/
 cloud-gateway/
 mysql/
 redis/
+notify-service/
 vault/data
 
 ### STS ###
